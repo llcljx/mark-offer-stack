@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Tech Education — Programs</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2e44;
+    --teal: #2a7f78;
+    --teal-light: #3a9e96;
+    --warm: #f7f3ee;
+    --cream: #fdfaf6;
+    --gold: #c8a96e;
+    --gold-light: #e8c98e;
+    --ink: #1e2a35;
+    --muted: #6b7c8d;
+    --border: #ddd5c8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background-color: var(--cream);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--navy);
+    padding: 28px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .site-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: #fff;
+    letter-spacing: 0.04em;
+  }
+  .site-logo span {
+    color: var(--gold-light);
+  }
+  .site-tagline {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 300;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--navy);
+    padding: 72px 48px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(42,127,120,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-weight: 300;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.1s forwards;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: #fff;
+    line-height: 1.2;
+    max-width: 720px;
+    margin: 0 auto 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.25s forwards;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    margin: 0 auto;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.4s forwards;
+  }
+
+  /* OFFER STACK */
+  .offers-section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 80px 32px 100px;
+  }
+  .offers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.08fr 1fr;
+    gap: 0;
+    align-items: start;
+    position: relative;
+  }
+
+  /* CARD */
+  .offer-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    padding: 44px 36px 48px;
+    position: relative;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+  .offer-card:hover {
+    box-shadow: 0 16px 48px rgba(26,46,68,0.10);
+    transform: translateY(-3px);
+  }
+  .offer-card:nth-child(1) { animation-delay: 0.15s; border-radius: 12px 0 0 12px; }
+  .offer-card:nth-child(2) { animation-delay: 0.3s; border-radius: 0; z-index: 2; }
+  .offer-card:nth-child(3) { animation-delay: 0.45s; border-radius: 0 12px 12px 0; }
+
+  /* FEATURED CARD */
+  .offer-card.featured {
+    background: var(--navy);
+    border-color: var(--navy);
+    margin: -16px 0;
+    padding: 60px 36px 64px;
+    box-shadow: 0 24px 64px rgba(26,46,68,0.22);
+  }
+  .offer-card.featured:hover {
+    box-shadow: 0 32px 80px rgba(26,46,68,0.3);
+    transform: translateY(-5px);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    white-space: nowrap;
+    font-family: 'Source Serif 4', serif;
+  }
+
+  .offer-tier {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  .featured .offer-tier { color: var(--gold-light); }
+
+  .offer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    line-height: 1.25;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .featured .offer-name { color: #fff; }
+
+  .offer-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    color: var(--teal);
+    line-height: 1;
+    margin: 18px 0 4px;
+  }
+  .featured .offer-price { color: var(--gold-light); }
+
+  .offer-price-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 24px;
+  }
+  .featured .offer-price-note { color: rgba(255,255,255,0.45); }
+
+  .offer-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+  .featured .offer-divider { background: rgba(255,255,255,0.12); }
+
+  .offer-description {
+    font-size: 0.93rem;
+    color: #4a5a6a;
+    line-height: 1.75;
+    margin-bottom: 28px;
+  }
+  .featured .offer-description { color: rgba(255,255,255,0.72); }
+
+  /* INCLUDES */
+  .includes-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+  .featured .includes-label { color: rgba(255,255,255,0.4); }
+
+  .includes-list {
+    list-style: none;
+    margin-bottom: 36px;
+  }
+  .includes-list li {
+    font-size: 0.88rem;
+    color: #3a4a5a;
+    padding: 7px 0;
+    padding-left: 22px;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    line-height: 1.5;
+  }
+  .featured .includes-list li {
+    color: rgba(255,255,255,0.8);
+    border-bottom-color: rgba(255,255,255,0.06);
+  }
+  .includes-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-size: 0.8rem;
+  }
+  .featured .includes-list li::before { color: var(--gold); }
+
+  /* CTA */
+  .cta-btn {
+    display: block;
+    width: 100%;
+    padding: 16px 24px;
+    text-align: center;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    border: none;
+  }
+  .cta-btn.secondary {
+    background: transparent;
+    border: 1.5px solid var(--teal);
+    color: var(--teal);
+  }
+  .cta-btn.secondary:hover {
+    background: var(--teal);
+    color: #fff;
+  }
+  .cta-btn.primary {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .cta-btn.primary:hover {
+    background: var(--gold-light);
+    box-shadow: 0 8px 24px rgba(200,169,110,0.35);
+    transform: translateY(-1px);
+  }
+  .cta-btn.outline-white {
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.7);
+  }
+  .cta-btn.outline-white:hover {
+    border-color: rgba(255,255,255,0.6);
+    color: #fff;
+  }
+
+  .guarantee-note {
+    font-size: 0.74rem;
+    text-align: center;
+    color: var(--muted);
+    margin-top: 12px;
+    font-style: italic;
+  }
+  .featured .guarantee-note { color: rgba(255,255,255,0.35); }
+
+  /* FOOTNOTE SECTION */
+  .footnote-section {
+    background: var(--warm);
+    border-top: 1px solid var(--border);
+    padding: 56px 48px;
+    text-align: center;
+  }
+  .footnote-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--navy);
+    margin-bottom: 14px;
+  }
+  .footnote-section p {
+    font-size: 0.93rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+  .footnote-section p a {
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1px solid var(--teal-light);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    .offers-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .offer-card { border-radius: 12px !important; }
+    .offer-card.featured { margin: 0; padding: 44px 36px 48px; }
+    .site-header { padding: 20px 24px; }
+    .hero { padding: 52px 24px 60px; }
+    .offers-section { padding: 52px 20px 72px; }
+    .footnote-section { padding: 44px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-logo">Smart<span>Tech</span> Education</div>
+  <div class="site-tagline">Mark Richman · smteched.com</div>
+</header>
+
+<section class="hero">
+  <p class="hero-eyebrow">Programs &amp; Pricing</p>
+  <h1>Your parent deserves to feel <em>confident</em> with their phone.</h1>
+  <p class="hero-sub">Three ways to get there — from a self-paced course to a fully guided start to a community-wide program.</p>
+</section>
+
+<section class="offers-section">
+  <div class="offers-grid">
+
+    <!-- LOW TICKET -->
+    <div class="offer-card">
+      <div class="offer-tier">Self-Paced</div>
+      <div class="offer-name">Master Your Smartphone</div>
+      <div class="offer-price">$29.95</div>
+      <div class="offer-price-note">One-time · Lifetime access</div>
+      <div class="offer-divider"></div>
+      <p class="offer-description">
+        46 step-by-step video lessons built specifically for seniors. Covers both iPhone and Android — from the basics of getting around the phone to staying safe from scams, using MyChart, connecting on Facebook, and more. No jargon. No rushing.
+      </p>
+      <div class="includes-label">What's included</div>
+      <ul class="includes-list">
+        <li>46 lessons across 12 chapters</li>
+        <li>iPhone and Android covered</li>
+        <li>Smartphone Cheat Sheet PDF</li>
+        <li>Online Safety Checklist PDF</li>
+        <li>Family Teaching Guide PDF</li>
+        <li>Quarterly live Q&amp;A with Mark</li>
+        <li>Lifetime access &amp; future updates</li>
+      </ul>
+      <a href="#" class="cta-btn secondary">Enroll Now</a>
+      <p class="guarantee-note">30-day money-back guarantee</p>
+    </div>
+
+    <!-- MID TICKET (FEATURED) -->
+    <div class="offer-card featured">
+      <div class="featured-badge">Recommended</div>
+      <div class="offer-tier">Course + Guided Start</div>
+      <div class="offer-name">The Complete Start</div>
+      <div class="offer-price">$247</div>
+      <div class="offer-price-note">One-time · Everything included</div>
+      <div class="offer-divider"></div>
+      <p class="offer-description">
+        The course answers what your parent will learn. The Complete Start answers whether they will actually begin. Combines full course access with a private 60-minute Zoom session where Mark introduces himself directly to your parent, logs in with them, and gets them moving — confidently — before the hour is up.
+      </p>
+      <div class="includes-label">What's included</div>
+      <ul class="includes-list">
+        <li>Everything in Master Your Smartphone</li>
+        <li>Private 60-min Zoom with Mark</li>
+        <li>Scheduled within 7 days of purchase</li>
+        <li>Written session summary sent to you</li>
+        <li>One specific practice task assigned</li>
+        <li>Priority access to quarterly Q&amp;A</li>
+      </ul>
+      <a href="#" class="cta-btn primary">Get The Complete Start</a>
+      <p class="guarantee-note">30-day money-back guarantee on both</p>
+    </div>
+
+    <!-- HIGH TICKET -->
+    <div class="offer-card">
+      <div class="offer-tier">Community License</div>
+      <div class="offer-name">The Smart Senior Living Program</div>
+      <div class="offer-price">From $997</div>
+      <div class="offer-price-note">Annual license · All residents covered</div>
+      <div class="offer-divider"></div>
+      <p class="offer-description">
+        A turnkey digital confidence program for senior living communities. Resident course access, printed workbooks shipped to your facility, and three live group Zoom sessions with Mark per year — timed around major phone software updates when residents need guidance most.
+      </p>
+      <div class="includes-label">What's included</div>
+      <ul class="includes-list">
+        <li>Full course access for all residents</li>
+        <li>Printed workbooks shipped to facility</li>
+        <li>3 live group sessions per year with Mark</li>
+        <li>Sessions timed to iOS &amp; Android updates</li>
+        <li>Brandable as your community's program</li>
+        <li>Discovery call &amp; free demo session</li>
+      </ul>
+      <a href="#" class="cta-btn secondary">Schedule a Discovery Call</a>
+      <p class="guarantee-note">Free demonstration session available</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="footnote-section">
+  <h3>Not sure which is right?</h3>
+  <p>Most families start with the course and add the Guided Start Session if their parent needs a hand getting going. Communities interested in the Smart Senior Living Program can <a href="#">schedule a free demonstration session</a> — no commitment required.</p>
+</section>
+
+</body>
+</html>
